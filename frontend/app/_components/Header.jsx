@@ -53,6 +53,7 @@ function Header() {
             <DropdownMenuSeparator />
             {menuCategory.map((category, index) => (
                 <DropdownMenuItem key={index}>
+                    <Image src={process.env.NEXT_PUBLIC_BACKEND_BASE_URL + category.icon.url} alt='' width='20' height='20'></Image>
                     {category.name}
                     </DropdownMenuItem>
             ))}               
