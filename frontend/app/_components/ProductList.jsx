@@ -31,7 +31,11 @@ function ProductList() {
                   setProductList(response.data.data);
               });
         };    
-
+   /* const [productTotalPrice,setProductTotalPrice]=useState(
+        product.sellingprice?
+        product.sellingprice:
+        product.mrp
+    );*/
   return (
     <div className='grid grid-cols-4 gap-4 p-5'>    
                 
@@ -63,9 +67,11 @@ function ProductList() {
                               </DialogTrigger>
                               <DialogContent>
                                 <DialogHeader>
-                                  <DialogTitle> </DialogTitle>
+                                  <DialogTitle>  </DialogTitle>
                                   <DialogDescription>
-                                  <div className='grid grid-cols-1 md:grid-cols-2 p-7 bg-white text-black'>
+                                      <ProductDetails product={product}/>
+
+                                  {/* <div className='grid grid-cols-1 md:grid-cols-2 p-7 bg-white text-black'>
                                      
                                       <img
                                           src={process.env.NEXT_PUBLIC_BACKEND_BASE_URL + product.image.url}
@@ -96,15 +102,14 @@ function ProductList() {
                                             </Button>
                                           </div>
                                           <div className='grid grid-cols-2 flex flex-col items-baseline text-sm'>
-                                            <span className='font-bold'>Category: </span>
                                             {product.categories.map((category, CatIndex) => (
-                                              <h2 key={CatIndex}>{category.name}</h2>
+                                              <h2 key={CatIndex}><span className='font-bold'>Category: </span>  {category.name}</h2>
                                             ))}
                                           </div>
                                           
                                       </div>
                                       
-                                  </div>
+                                  </div>*/}
                                   </DialogDescription>
                                 </DialogHeader>
                               </DialogContent>

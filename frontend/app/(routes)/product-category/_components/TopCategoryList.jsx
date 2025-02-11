@@ -1,24 +1,7 @@
-'use client';
-import React from 'react';
-import GlobalApi from '../_utilities/GlobalApi';
-import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from 'react'
 
-function CategoryList() {
-    const [categorylist, setMenuCategory] = React.useState([]);
-
-      useEffect(() => {
-        getMenuCategory();
-      },[]);
-  
-      const getMenuCategory = () => {
-          GlobalApi.getMenuCategory().then((response) => {
-              console.log('List', response.data.data);
-              setMenuCategory(response.data.data);
-          });
-    };    
-    return (
+function TopCategoryList({categorylist}) {
+  return (
     <div>
       <div>
         
@@ -37,4 +20,4 @@ function CategoryList() {
   )
 }
 
-export default CategoryList;
+export default TopCategoryList
