@@ -1,19 +1,61 @@
 // ProductDetails.js
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
-import { ShoppingBasket } from 'lucide-react';
+import { LoaderIcon, ShoppingBasket } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import GlobalApi from '../_utilities/GlobalApi';
+import { toast } from 'sonner';
+import { UpdateCartContext } from '../_context/UpdateCartContext';
 
 export default function ProductDetails({ product }) { // Destructure the product prop directly
+  console.log(product.id);
+  const jwt=sessionStorage.getItem('jwt'); //To get JWT token if session has value of logged-in user
+  const user=JSON.parse(sessionStorage.getItem('user'));
+  const [loader,setLoader]=useState();
   
+  const {updateCart,setUpdateCart}=useContext(UpdateCartContext);
+
   const [ProductTotalPrice,setProductTotalPrice] = useState(
     product.sellingprice?
     product.sellingprice:
     product.mrp
   );
 
+  const router=useRouter();
   const [Quantity,setQuantity] = useState(1);
+
+  const addInCart=()=>{
+    setLoader(true);
+    if(!jwt){
+      router.push('/sign-in');
+      return;
+    }
+   
+    const data={
+      data:{
+        quantity:Quantity,
+        amount:(Quantity*ProductTotalPrice).toFixed(2),
+        products:product.id-1,
+        users_permissions_users:user.id,
+        userid:user.id
+      }      
+    }
+    console.log(data);
+    
+    GlobalApi.addToCart(data,jwt).then(resp=>{
+      console.log(resp);
+      toast('Added to Cart');
+      setUpdateCart(!updateCart);
+      setLoader(false);
+
+    },(e)=>{
+      toast('Error while adding into cart');
+      setLoader(false);
+
+    })
+  }
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 p-7 bg-white text-black">
@@ -56,9 +98,9 @@ export default function ProductDetails({ product }) { // Destructure the product
             </div>
             <h2 className='text-2xl font-bold'>=${(Quantity*ProductTotalPrice).toFixed(2)}</h2>
           </div>
-          <Button variant="outline" className="bg-transparent border-amber-950 bg-yellow-300 border-solid m-3">
+          <Button variant="outline" onClick={()=>addInCart()} className="bg-transparent border-amber-950 bg-yellow-300 border-solid m-3">
             <ShoppingBasket />
-            Add To Cart
+            {loader?<LoaderIcon className='animate-spin'/> :'Add To Cart'}
           </Button>
         </div>
         <div className='grid grid-cols-2 flex flex-col items-baseline text-sm'>

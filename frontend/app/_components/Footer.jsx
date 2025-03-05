@@ -17,7 +17,7 @@ export default function Footer() {
           <p className="text-4xl mb-6 font-sans font-bold">
             Day from 10:00 AM to 08:00 PM
           </p>
-          <p className="text-xl mb-8">* For Orders starting from $100</p>
+          <p className="text-xl mb-8">* For Orders starting from 100</p>
 
           <button className="bg-white text-green-700 py-3 px-6 rounded-md text-lg font-medium hover:bg-green-100 transition duration-300"> {/* Improved button styling */}
             Read More

@@ -31,11 +31,7 @@ function ProductList() {
                   setProductList(response.data.data);
               });
         };    
-   /* const [productTotalPrice,setProductTotalPrice]=useState(
-        product.sellingprice?
-        product.sellingprice:
-        product.mrp
-    );*/
+  
   return (
     <div className='grid grid-cols-4 gap-4 p-5'>    
                 
